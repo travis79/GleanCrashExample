@@ -5,7 +5,6 @@
 package org.mozilla.gleancrashexample
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -23,10 +22,7 @@ class MainActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-
+        fab.setOnClickListener {
             // Go boom!
             throw NullPointerException()
         }
@@ -39,9 +35,12 @@ class MainActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
     }
 
     override fun uncaughtException(p0: Thread, p1: Throwable) {
-        Crash.exception.record(mapOf(Crash.exceptionKeys.cause to p1.cause!!.toString(),
-            Crash.exceptionKeys.message to p1.message!!))
-        //Pings.crash.send()
+        Crash.exception.record(
+            mapOf(
+                Crash.exceptionKeys.cause to p1.cause!!.toString(),
+                Crash.exceptionKeys.message to p1.message!!)
+        )
+        Pings.crash.send()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
