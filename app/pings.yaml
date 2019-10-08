@@ -1,0 +1,13 @@
+# Required to indicate this is a `pings.yaml` file
+$schema: moz://mozilla.org/schemas/glean/pings/1-0-0
+
+crash:
+  description: >
+    A ping to transport crash data
+  include_client_id: true
+  notification_emails:
+    - crash@example.com
+  bugs:
+    - https://bugzilla.mozilla.org/show_bug.cgi?id=1582479
+  data_reviews:
+    - https://bugzilla.mozilla.org/show_bug.cgi?id=1582479
