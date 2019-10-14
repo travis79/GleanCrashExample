@@ -21,9 +21,6 @@ allprojects {
         jcenter()
         maven {
             url "https://maven.mozilla.org/maven2"
-            content {
-                includeGroupByRegex "org\\.mozilla\\..*"
-            }
         }
     }
 }
