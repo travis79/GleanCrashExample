@@ -24,6 +24,16 @@ implementation 'org.mozilla.components:service-glean:16.0.0'
 
 As of this writing, version `16.0.0` is the latest version of [Android-Components](https://github.com/mozilla-mobile/android-components/).  Android-Components is a collection of tools for building browsers on Android and it is the easiest way to consume Glean on Android at the moment.  You should probably take a look at the Android-Components releases and check that you are using the latest version of Android-Components for your project.  So just replace the version above with the latest.
 
+### Add Mozilla Maven Repository
+
+In order to be able to download Glean, we need to add Mozilla’s maven repository URL to the Project build.gradle file.  In Android Studio, for our project named “GleanCrashExample”, there will be a build.gradle that has `(Project: GleanCrashExample)` next to it.  In this Gradle file, you will find a section called `allProjects` which has in it a section called `repositories`.  You may already find `google()` and `jcenter()` there, but we need to add the following in order to download Glean:
+
+```Groovy
+maven {
+    url "https://maven.mozilla.org/maven2"
+}
+```
+
 ### Add Python Environment
 
 We add a Python environment for the [glean_parser](https://github.com/mozilla/glean_parser/) to run in with the following lines, added to the very top of the `build.gradle` file:
@@ -40,16 +50,6 @@ The last part of the changes to the app’s build.gradle file is to include the 
 
 ```Groovy
 apply from: 'https://github.com/mozilla-mobile/android-components/raw/v16.0.0/components/service/glean/scripts/sdk_generator.gradle'
-```
-
-### Add Mozilla Maven Repository
-
-One final step is necessary in order to be able to download Glean from Mozilla’s maven repository.  We need to add the repo URL to the Project build.gradle file.  In Android Studio, for our project named “GleanCrashExample”, there will be a build.gradle that has `(Project: GleanCrashExample)` next to it.  In this Gradle file, you will find a section called `allProjects` which has in it a section called `repositories`.  You may already find `google()` and `jcenter()` there, but we need to add the following in order to download Glean:
-
-```Groovy
-maven {
-    url "https://maven.mozilla.org/maven2"
-}
 ```
 
 That should be it for additions to the build configuration files.  You should try to do a Gradle sync now to make sure everything works.  If you have any problems, try going back through the configuration steps to make sure you got everything.
@@ -139,7 +139,7 @@ We now have a couple of tasks to perform back in the MainActivity.kt file in ord
 import org.mozilla.gleancrashexample.GleanMetrics.Pings
 ```
 
-And then we need to register our custom ping, so right after `Glean.initialize(this)` add the following line:
+Then we need to register our custom ping by calling `Glean.initialize(this)`.  In the `MainActivity.onCreate()` function, add the following line:
 
 ```Kotlin
 Glean.registerPings(Pings)
