@@ -17,7 +17,7 @@ crash:
     data_reviews:
       - https://bugzilla.mozilla.org/show_bug.cgi?id=1582479
     expires:
-      2099-01-01
+      2021-01-01
     send_in_pings:
       - crash
     extra_keys:
