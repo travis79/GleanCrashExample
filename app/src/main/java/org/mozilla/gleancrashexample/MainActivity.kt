@@ -27,10 +27,6 @@ class MainActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
             throw NullPointerException()
         }
 
-        Glean.setUploadEnabled(true)
-        Glean.initialize(this)
-        Glean.registerPings(Pings)
-
         Thread.setDefaultUncaughtExceptionHandler(this)
     }
 
